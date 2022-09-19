@@ -23,7 +23,6 @@ func (p *Profile) Append(stacktrace string, value int) {
 }
 
 func (p *Profile) Serialize(w io.Writer) error {
-
 	e := json.NewEncoder(w)
 	return e.Encode(p)
 }

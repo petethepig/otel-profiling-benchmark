@@ -26,7 +26,7 @@ make benchmark
 
 You can contribute by creating issues or pull requests. Best ways to contribute are:
 
-* You can add profiles to `/profiles/src` directory. Please make sure that the profiles are not too big (less than 10MB) and are not too sensitive (no personal data).
+* You can add profiles to the data set. In order to do that first add your profiles to `/profiles/src` directory. You can then run `make convert` to perform anonymization of symbol names and conversion into intermediary format.
 
 * You can modify the reference implementation (`/reference`) and make improvements.
 

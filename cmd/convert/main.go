@@ -1,10 +1,16 @@
 package main
 
 import (
-	"io"
+	"bufio"
+	"fmt"
+	"log"
 	"os"
+	"otelprofiling/anonymizer"
 	"path/filepath"
+	"strconv"
 	"strings"
+
+	"github.com/jzelinskie/must"
 )
 
 func main() {
@@ -16,29 +22,30 @@ func main() {
 
 	for _, path := range filepaths {
 		if strings.HasSuffix(path, ".collapsed") {
-			copyFile(path, strings.Replace(path, "src", "intermediary", 1))
+			inputFile := must.NotError(os.Open(path))
+			outPath := strings.Replace(path, "src", "intermediary", 1)
+			outputFile := must.NotError(os.Create(outPath))
+			scanner := bufio.NewScanner(inputFile)
+			a := anonymizer.New()
+			for scanner.Scan() {
+				str := scanner.Text()
+				arr := strings.Split(str, " ")
+
+				stacktrace := arr[0]
+				array := strings.Split(stacktrace, ";")
+				for i := 0; i < len(array); i++ {
+					array[i] = a.Anonymize(array[i])
+				}
+				stacktrace = strings.Join(array, ";")
+				line := fmt.Sprintf("%s %v", stacktrace, must.NotError(strconv.Atoi(arr[1])))
+				outputFile.Write([]byte(line))
+			}
+
+			if err := scanner.Err(); err != nil {
+				log.Fatal(err)
+			}
 		} else {
 			panic("Unexpected file extension")
 		}
 	}
-}
-
-func copyFile(src, dst string) error {
-	in, err := os.Open(src)
-	if err != nil {
-		return err
-	}
-	defer in.Close()
-
-	out, err := os.Create(dst)
-	if err != nil {
-		return err
-	}
-	defer out.Close()
-
-	_, err = io.Copy(out, in)
-	if err != nil {
-		return err
-	}
-	return out.Close()
 }
