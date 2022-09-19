@@ -1,0 +1,44 @@
+# Open Telemetry profiling benchmarks
+
+This repository consists of :
+* data sets (`/profiles`)
+* tool to convert (`/cmd/convert`)
+* reference implementation of Open Telemetry profiling format converter (`/reference`)
+* tool to generate benchmarking reports (`/cmd/report`)
+
+
+### Usage
+
+#### To convert from source formats to intermediary format
+
+```bash
+# this will take files from /profiles/src and put converted files to /profiles/intermediary
+make convert
+```
+
+#### To run the benchmarks and generate reports
+
+```bash
+make benchmark
+```
+
+### How to contribute
+
+You can contribute by creating issues or pull requests. Best ways to contribute are:
+
+* You can add profiles to `/profiles/src` directory. Please make sure that the profiles are not too big (less than 10MB) and are not too sensitive (no personal data).
+
+* You can modify the reference implementation (`/reference`) and make improvements.
+
+* You can make any other improvements to the repository.
+
+
+### TODOs
+
+This repository is work-in-progress. Most functionality is not yet implemented.
+
+TODO:
+* [ ] populate source data set (`/profiles/src`)
+* [ ] implement converters / anonymizers for conversions from source formats to the intermediate format
+* [ ] implement a tool for generating benchmark reports
+* [ ] create a github actions workflow to run benchmarks on every PR and print results comparing the change to the main branch
