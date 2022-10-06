@@ -6,6 +6,7 @@ This repository consists of :
 * reference implementation of Open Telemetry profiling format converter (`/reference`)
 * tool to generate benchmarking reports (`/cmd/report`)
 
+![diagram describing relationships between main components](./diagram.drawio.svg)
 
 ### Usage
 
