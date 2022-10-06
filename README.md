@@ -1,6 +1,8 @@
 # Open Telemetry profiling benchmarks
 
-This repository consists of :
+This repository is based on [Open Telemetry proposal document](https://docs.google.com/document/d/1Ba1F1PjRtW4AZ6qurUrBjw6bz5NiKqIs2WQQ2N2FR6A/edit#).
+
+It consists of:
 * data sets (`/profiles`)
 * tool to convert (`/cmd/convert`)
 * reference implementation of Open Telemetry profiling format converter (`/reference`)
